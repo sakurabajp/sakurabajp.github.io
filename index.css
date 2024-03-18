@@ -36,7 +36,10 @@ body {
 .main{
     font-family: Comic Sans MS;
     text-align: center;
+    padding-top: 60px;
 }
 .con1{
     padding: 30px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
