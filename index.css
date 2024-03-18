@@ -12,7 +12,7 @@ header {
 nav ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding-left: 15%;
 }
 nav ul li {
     display: inline-block;
@@ -40,6 +40,42 @@ body {
 }
 .con1{
     padding: 30px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+#hr_2 {
+	border-top: 1px dashed #aaa;
+}
+.box {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #232323;
+    background: #ffffff;
+    border-left: solid 5px #2300be;
+}
+.box p {
+    margin: 0; 
+    padding: 0;
+}
+.boxy {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #232323;
+    background: #e7e7e7;
+    border-left: solid 5px #ff0d0d;
+}
+.boxy p {
+    margin: 0; 
+    padding: 0;
+}
+.boxx {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #232323;
+    background: #e7e7e7;
+    border-left: solid 5px #000000;
+}
+.boxx p {
+    margin: 0; 
+    padding: 0;
 }
