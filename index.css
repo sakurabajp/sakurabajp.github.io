@@ -1,6 +1,5 @@
-header {
-    background-color: #8f8f8f;
-    background-color: #666666;
+/* header {
+    background-color: #666;
     padding: 30px;
     color: #fff;
     position: fixed;
@@ -28,20 +27,26 @@ nav ul li a {
 nav ul li a:hover {
     color: #ffcc00;
 }
+ */
+
+header{
+    font-size: 120%;
+}
+nav{
+    padding: 130px;
+}
 /* 以下はヘッダー固定のためのスタイル調整 */
 body {
     margin-top: 60px;
     /* ヘッダーの高さ + パディング分のマージンを追加 */
 }
 .main{
-    font-family: Comic Sans MS;
+    font-family: Comic Sans MS, serif;
     text-align: left;
     padding-top: 60px;
 }
 .con1{
-    padding: 30px;
-    padding-left: 20%;
-    padding-right: 20%;
+    padding: 30px 20%;
 }
 #hr_2 {
 	border-top: 1px dashed #aaa;
