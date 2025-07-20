@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>限界寝落ち部</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Hiragino Sans', sans-serif;
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #12123D, #1F1F5C, #2D2D7A);
+            background-size: 400% 400%;
+            z-index: -1;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .title-container {
+            opacity: 0; /* 初期状態は非表示 */
+            transform: translateY(50px); /* 初期位置は下方向にずらす */
+        }
+        .title {
+            text-align: center;
+            font-size: 1.5cm;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 0.5cm;
+            color: rgba(255,255,255,0.8);
+            margin-top: 20px;
+            opacity: 0; /* 初期状態は非表示 */
+        }
+        .button {
+            margin-top: 40px;
+            padding: 12px 30px;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 30px;
+            font-size: 0.4cm;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0; /* 初期状態は非表示 */
+            transform: scale(0.8); /* 初期スケールは小さく */
+        }
+        .button:hover {
+            background-color: white;
+            color: #1F1F5C;
+        }
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #12123D;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .loader-text {
+            color: white;
+            font-size: 24px;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+<!-- ローディング画面 -->
+<div class="loader">
+    <div class="loader-text">LOADING...</div>
+</div>
+
+<!-- パーティクル背景 -->
+<div id="particles-js"></div>
+
+<!-- メインコンテンツ -->
+<div class="content">
+    <div class="title-container">
+        <h1 class="title">限界寝落ち部！</h1>
+        <p class="subtitle">〜 with 眠気 〜</p>
+    </div>
+</div>
+
+<!-- Particles.js ライブラリ -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<!-- GSAP アニメーションライブラリ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+
+<script>
+    // Particles.js 設定
+    document.addEventListener('DOMContentLoaded', function() {
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 120,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.3,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 200,
+                        "size": 6,
+                        "duration": 2,
+                        "opacity": 0.8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // ページロード完了時のアニメーション
+        window.addEventListener('load', function() {
+            // ローディング画面を閉じるアニメーション
+            gsap.to('.loader', {
+                duration: 1,
+                opacity: 0,
+                onComplete: function() {
+                    document.querySelector('.loader').style.display = 'none';
+
+                    // 背景グラデーションのアニメーション
+                    gsap.to('#particles-js', {
+                        backgroundPosition: '100% 50%',
+                        duration: 15,
+                        ease: 'power1.inOut',
+                        repeat: -1,
+                        yoyo: true
+                    });
+
+                    // タイトルのアニメーション
+                    const tl = gsap.timeline();
+
+                    tl.to('.title-container', {
+                        duration: 1.2,
+                        opacity: 1,
+                        y: 0,
+                        ease: 'power3.out'
+                    })
+                        .to('.subtitle', {
+                            duration: 0.8,
+                            opacity: 1,
+                            ease: 'power2.out',
+                            delay: -0.5
+                        })
+                        .to('.button', {
+                            duration: 0.8,
+                            opacity: 1,
+                            scale: 1,
+                            ease: 'back.out(1.7)',
+                            delay: -0.3
+                        });
+
+                    // ボタンのホバーエフェクト
+                    gsap.to('.button', {
+                        duration: 1.5,
+                        yoyo: true,
+                        repeat: -1,
+                        boxShadow: '0 0 20px rgba(255,255,255,0.5)',
+                        ease: 'sine.inOut'
+                    });
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
