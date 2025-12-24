@@ -1,86 +1,122 @@
-/* header {
-    background-color: #666;
-    padding: 30px;
-    color: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-}
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding-left: 15%;
-}
-nav ul li {
-    display: inline-block;
-    margin-left: 20px;
-}
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-family: "Arial", sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-}
-nav ul li a:hover {
-    color: #ffcc00;
-}
- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap');
 
-header{
-    font-size: 120%;
+:root {
+    --bg-color: #121212;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #e0e0e0;
+    --text-muted: #aaaaaa;
+    --accent-color: #ffb7c5; /* 桜色 */
+    --accent-hover: #ff8da1;
+    --navbar-bg: rgba(18, 18, 18, 0.85);
 }
-nav{
-    padding: 130px;
-}
-/* 以下はヘッダー固定のためのスタイル調整 */
+
 body {
-    margin-top: 60px;
-    /* ヘッダーの高さ + パディング分のマージンを追加 */
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 183, 197, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(35, 0, 190, 0.15) 0%, transparent 20%);
+    color: var(--text-main);
+    font-family: "Noto Sans JP", sans-serif;
+    margin: 0;
+    padding-top: 80px; /* ナビバーの分 */
 }
-.main{
-    font-family: Comic Sans MS, serif;
-    text-align: left;
-    padding-top: 60px;
+
+/* ナビゲーションバー */
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.con1{
-    padding: 30px 20%;
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--accent-color) !important;
+    letter-spacing: 1px;
 }
-#hr_2 {
-	border-top: 1px dashed #aaa;
+
+.nav-link {
+    color: var(--text-main) !important;
+    transition: color 0.3s;
 }
-.box {
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    color: #232323;
-    background: #ffffff;
-    border-left: solid 5px #2300be;
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-color) !important;
 }
-.box p {
-    margin: 0; 
-    padding: 0;
+
+/* メインコンテンツ */
+.main-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
-.boxy {
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    color: #232323;
-    background: #e7e7e7;
-    border-left: solid 5px #ff0d0d;
+
+h1.page-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
 }
-.boxy p {
-    margin: 0; 
-    padding: 0;
+
+.title-underline {
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-color);
+    margin: 0 auto 50px auto;
+    border-radius: 2px;
 }
-.boxx {
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    color: #232323;
-    background: #e7e7e7;
-    border-left: solid 5px #000000;
+
+.section-title {
+    font-size: 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 15px;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    color: #fff;
 }
-.boxx p {
-    margin: 0; 
-    padding: 0;
+
+/* カードスタイル（Glassmorphism） */
+.custom-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+    height: 100%;
+    backdrop-filter: blur(5px);
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-color);
+}
+
+.card-title a {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.card-title a:hover {
+    color: var(--accent-hover);
+}
+
+.card-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 50px;
 }
