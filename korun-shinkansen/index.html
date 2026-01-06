@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R7�y� - Minecraft Blue Ice Express</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 30, 60, 0.85), rgba(0, 0, 0, 0.75));
+            z-index: 1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #4fc3f7, #ffffff, #81d4fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(79, 195, 247, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.8rem);
+            letter-spacing: 0.3em;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            opacity: 0.85;
+        }
+
+        .stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(79, 195, 247, 0.8);
+            box-shadow: 0 10px 30px rgba(79, 195, 247, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4fc3f7;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #000000, #0a1929);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4fc3f7, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(79, 195, 247, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(79, 195, 247, 0.6);
+            box-shadow: 0 20px 50px rgba(79, 195, 247, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #4fc3f7;
+        }
+
+        .feature-text {
+            line-height: 1.8;
+            opacity: 0.85;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            opacity: 0.6;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        .tech-specs {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(79, 195, 247, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 3rem auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-specs table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tech-specs td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(79, 195, 247, 0.1);
+        }
+
+        .tech-specs td:first-child {
+            font-weight: 600;
+            color: #4fc3f7;
+            width: 40%;
+        }
+
+        .tech-specs tr:last-child td {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                gap: 1.5rem;
+            }
+
+            .stat-item {
+                min-width: 120px;
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <img src="2026-01-02_17.59.18.webp" alt="青氷新幹線" class="hero-bg">
+        <div class="hero-content">
+            <h1 class="hero-title">青氷新幹線</h1>
+            <p class="hero-subtitle">BLUE ICE EXPRESS</p>
+            <p class="hero-description">
+                Minecraftの世界に誕生した、究極の高速交通システム。<br>
+                青氷ボートの超高速移動を活用し、新幹線の速さと快適さを再現。
+            </p>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">72</span>
+                    <span class="stat-label">m/s</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Distance</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Crafted</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Features</h2>
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">超高速移動</h3>
+                <p class="feature-text">
+                    青氷ボートの特性を最大限に活用し、毎秒72mの超高速移動を実現。従来の移動手段を圧倒する速さで目的地へ到達します。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🏗️</span>
+                <h3 class="feature-title">高架構造 </h3>
+                <p class="feature-text">
+                    水上に構築された堅牢な高架橋。Minecraftの景観に調和しながら、実際の新幹線をイメージさせるモダンなデザイン。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🧊</span>
+                <h3 class="feature-title">青氷テクノロジー</h3>
+                <p class="feature-text">
+                    青氷の滑りやすさを利用した革新的な軌道システム。メンテナンスフリーで持続可能な交通インフラを提供します。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">精密設計</h3>
+                <p class="feature-text">
+                    カーブや勾配まで計算された精密な線路設計。安全性と快適性を両立した、まさに次世代の交通システムです。
+                </p>
+            </div>
+        </div>
+
+        <div class="tech-specs">
+            <h3 style="text-align: center; margin-bottom: 1.5rem; color: #4fc3f7; font-size: 1.8rem;">技術仕様</h3>
+            <table>
+                <tr>
+                    <td>軌道材質</td>
+                    <td>青氷（Blue Ice）</td>
+                </tr>
+                <tr>
+                    <td>最高速度</td>
+                    <td>72 m/s（約260 km/h）</td>
+                </tr>
+                <tr>
+                    <td>構造形式</td>
+                    <td>高架橋（石レンガ/ランタン）</td>
+                </tr>
+                <tr>
+                    <td>車両</td>
+                    <td>ボート（Boat）</td>
+                </tr>
+                <tr>
+                    <td>動力源</td>
+                    <td>プレイヤー操作/摩擦低減</td>
+                </tr>
+                <tr>
+                    <td>建築環境</td>
+                    <td>Minecraft Java Edition</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+</body>
+</html>
